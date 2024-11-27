@@ -4,12 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npx tailwindcss -i ./src/input.css -o ./src/output.css --watch"
+    "build": "npx tailwindcss -i ./src/input.css -o ./src/output.css --watch",
+    "server": "node --watch server"
   },
   "keywords": [],
   "author": "spencer miller",
   "license": "MIT",
   "devDependencies": {
     "tailwindcss": "^3.4.15"
+  },
+  "dependencies": {
+    "express": "^4.21.1",
+    "mongoose": "^8.8.3"
   }
 }

@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="./output.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
   
@@ -25,10 +26,12 @@
           <div>
             <label for="username" class="block text-sm font-medium text-gray-600 mb-1">Password</label>
             <input
-              id="userName"
+              id="password"
               placeholder="Enter Your Password"
               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-uvuLightGreen focus:outline-none"/>
           </div>
+
+          <!-- submit btn -->
           <button type="submit" 
             class="w-full bg-uvuPrimary text-white py-2 rounded-lg 
             font-medium hover:bg-uvuMediumGreen focus:ring-2 focus:ring-uvuLightGreen 
@@ -38,5 +41,6 @@
         </form>
       </div>
     </div>
+    <script src="./js/login.js"></script>
 </body>
 </html>
