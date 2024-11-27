@@ -1,0 +1,15 @@
+{
+  "name": "megapractium",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx tailwindcss -i ./src/input.css -o ./src/output.css --watch"
+  },
+  "keywords": [],
+  "author": "spencer miller",
+  "license": "MIT",
+  "devDependencies": {
+    "tailwindcss": "^3.4.15"
+  }
+}
