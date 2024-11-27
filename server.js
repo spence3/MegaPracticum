@@ -42,6 +42,7 @@ app.post('/api/v1/login', async(req, res) => {
             res.status(500).send('Incorrect Password')
         }
         res.status(200).send('Correct Password!')
+        res.render('test')
     }
     catch(error){
         console.error('error', error)
