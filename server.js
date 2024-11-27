@@ -20,34 +20,67 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 
-app.post('/api/v1/add-user', async(req, res) => {
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'login.html'))
+})
 
-    const { id, university_Id, role, first_name, last_name, password} = req.body
+app.get('/dashboard', (req, res) => {
+    res.send("welcome to dashboard")
+})
+
+
+app.post('/api/v1/login', async(req, res) => {
+    const { userName, password} = req.body
+
+    try{
+        const existingUser = await User.findOne({first_name: userName})
+        if(!existingUser){
+           res.status(500).send('User does not exist')
+        }
+        const isMatch = await bcrypt.compare(password, existingUser.password)
+        if(!isMatch){
+            res.status(500).send('Incorrect Password')
+        }
+        res.status(200).send('Correct Password!')
+    }
+    catch(error){
+        console.error('error', error)
+    }
+    
+    
+})
+
+app.post('/api/v1/add-user', async(req, res) => {
+    console.log('Request Body:', req.body); // Debug incoming data
+    const { user_Id, university_Id, role, first_name, last_name, password} = req.body
+    console.log(`${user_Id} ${university_Id}, ${role}, ${first_name}, ${last_name}, ${password}`)
     try {
-        const existingUser = await User.findById(id)
+        const existingUser = await User.findOne({ user_Id: user_Id });
         if(existingUser){
+            console.log('they exists')
             return res.status(400).send('User already exists')
         }
 
         const hashedPassword = await bcrypt.hash(password, 10)
-
+        console.log('creating user...')
         const user = await User.create({
-            id: id,
+            user_Id: user_Id,
             university_Id: university_Id,
             role: role,
             first_name: first_name,
             last_name: last_name,
-            password: hashedPassword
+            password: hashedPassword, 
         })
+        console.log('success')
         res.status(200).json(user)
     }
     catch(error){
-        res.status(500).json({message: error.message})
+        if (error.code === 11000) { // Duplicate key error code
+            return res.status(400).json({ message: 'User ID already exists' });
+        }
+        console.log('Error:', error); // Log the error for debugging
+        res.status(500).json({ message: error.message });
     }
-})
-
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'login.html'))
 })
 
 app.post('/api/v1/login', (req, res) => {

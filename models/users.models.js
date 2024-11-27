@@ -2,9 +2,10 @@ const mongoose = require('mongoose')
 
 const userSchema = mongoose.Schema(
     {
-        id: {
+        user_Id: {
             type: String,
-            required: [true, 'user id is required']
+            required: [true, 'user id is required'],
+            unique: true,
         },
         university_Id: {
             type: String,
@@ -27,7 +28,7 @@ const userSchema = mongoose.Schema(
             required: [true, 'Enter in the users password']
         }
     },
-    {timestamp: true}
+    {Timestamp: true}
 )
 
 const Users = mongoose.model('User', userSchema)
